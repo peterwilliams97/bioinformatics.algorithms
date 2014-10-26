@@ -11,6 +11,7 @@ def skew_values(text):
 
 
 text = 'CATTCCAGTACTTCATGATGGCGTGAAGA'
+text = 'GATACACTTCCCAGTAGGTACTG'
 skews = skew_values(text)
 min_index, min_value = min(enumerate(skews), key=operator.itemgetter(1))
 max_index, max_value = max(enumerate(skews), key=operator.itemgetter(1))
