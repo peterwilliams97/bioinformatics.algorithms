@@ -6,9 +6,11 @@ def word_count(text, pattern):
     return cnt
 
 
-def clump(text, n, pattern):
-    """clump aka frequent words"""
-    return max(word_count(text[i:i + n], pattern) for i in range(len(text) - n))
+def clump(text, L, pattern):
+    """clump aka frequent words
+        Return max # times `pattern` occurs within a length `L` substring of `text`
+    """
+    return max(word_count(text[i:i + L], pattern) for i in range(len(text) - L))
 
 
 text = 'GCACAAGGCCGACAATAGGACGTAGCCTTGAAGACGACGTAGCGTGGTCGCATAAGTACAGTAGATAGTACCTCCCCCGCGCATCCTATTATTAAGTTAATT'
