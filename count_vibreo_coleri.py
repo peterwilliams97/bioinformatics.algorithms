@@ -13,7 +13,7 @@ def find_in_genome(genome_path, pattern):
     print('find_in_genome: genome_path="%s",size=%d,pattern="%s" %d' % (genome_path, len(text),
           pattern, len(pattern)))
     offsets = all_offsets(text, pattern)
-    out_path = 'peter.%s.%s.offsets' % (genome_path, pattern[:10])
+    out_path = make_outpath('%s.%s.offsets' % (genome_path, pattern[:10]))
     print('out_path="%s",%d offsets %s' % (out_path, len(offsets), offsets[:10]))
     write_offsets(out_path, offsets)
 

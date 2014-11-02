@@ -5,7 +5,21 @@ http://www.astro.up.pt/~sousasag/Python_For_Astronomers/Python_qr.pdf?utm_conten
 """
 from __future__ import division, print_function
 import re
+import os
 from collections import defaultdict
+
+
+OUTPUT_DIR = 'output'
+
+try:
+    os.mkdir(OUTPUT_DIR)
+except:
+    pass
+
+
+def make_outpath(filename):
+    return os.path.join(OUTPUT_DIR, filename)
+
 
 complements = {
     'G': 'C', 'C': 'G',
@@ -77,14 +91,14 @@ def frequent_kmers(text, k, min_cnt=None, include_rc=False):
 
 def find_clumps(text, k, L, t):
     """Clump Finding Problem: Find patterns forming clumps in a string.
-     Find all `k`-mers that occur `t` or more time in substring of length `L` in `text`
+     Find all `k`-mers that occur `t` or more times in substrings of length `L` in `text`
 
      Input: A string `text', and integers k, L, and t.
      Output: All distinct k-mers forming (L, t)-clumps in Genome.
 
     """
     freq_kmers = [kmer for kmer, _ in frequent_kmers(text, k, t)]
-    print('@@1 %s' % freq_kmers)
+    #print('@@1 %s' % freq_kmers)
     clumps = []
     for kmer in freq_kmers:
         offsets = all_offsets(text, kmer)
