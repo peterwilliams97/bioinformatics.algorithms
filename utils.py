@@ -195,3 +195,26 @@ def find_clumps(text, k, L, t):
                 break
 
     return clumps
+
+
+def skew(text, k):
+    """#G - #C for first `k` neucleotides of Genome `text`"""
+    return text[:k].count('G') - text[:k].count('C')
+
+
+def skew_values(text):
+    """Return list of len(text) + 1 skew values in `text`"""
+    skew = 0
+    skew_list = [0]
+    for c in text:
+        skew += (c == 'G') - (c == 'C')
+        skew_list.append(skew)
+    return skew_list
+
+
+def skew_min_max(skew_list):
+    min_value = min(skew_list)
+    max_value = max(skew_list)
+    min_indexes = [i for i, x in enumerate(skew_list) if x == min_value]
+    max_indexes = [i for i, x in enumerate(skew_list) if x == max_value]
+    return (min_value, max_value), min_indexes, max_indexes

@@ -1,23 +1,21 @@
-import operator
-
-
-def skew(text, k):
-    """#G - #C for first `k` neucleotides of Genome `text`"""
-    return text[:k].count('G') - text[:k].count('C')
-
-
-def skew_values(text):
-    return [skew(text, k) for k in range(len(text) + 1)]
+# -*- coding: utf-8 -*-
+from __future__ import division, print_function
+from utils import skew_values, skew_min_max
 
 
 text = 'CATTCCAGTACTTCATGATGGCGTGAAGA'
 text = 'GATACACTTCCCAGTAGGTACTG'
-skews = skew_values(text)
-min_index, min_value = min(enumerate(skews), key=operator.itemgetter(1))
-max_index, max_value = max(enumerate(skews), key=operator.itemgetter(1))
+text = 'GAGCCACCGCGATA'
+text = 'CATGGGCATCGGCCATACGCC'
 
-for i, sk in enumerate(skews):
+skew_list = skew_values(text)
+(min_value, max_value), min_indexes, max_indexes = skew_min_max(skew_list)
+
+for i, x in enumerate(skew_list[:20]):
     c = text[i - 1] if i > 0 else ' '
-    is_min = '---' if i == min_index else ''
-    is_max = '+++' if i == max_index else ''
-    print '%3d: %s %3d %s%s' % (i, c, sk, is_min, is_max)
+    is_min = '---' if x == min_value else ''
+    is_max = '+++' if x == max_value else ''
+    print('%3d: %s %3d %s%s' % (i, c, x, is_min, is_max))
+
+print(' '.join(str(x) for x in skew_list[:20]))
+print('min=%d %s,max=%d %s' % (min_value, min_indexes, max_value, max_indexes))
