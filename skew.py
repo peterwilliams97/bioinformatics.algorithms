@@ -2,7 +2,6 @@
 from __future__ import division, print_function
 from utils import skew_values, skew_min_max
 
-
 text = 'CATTCCAGTACTTCATGATGGCGTGAAGA'
 text = 'GATACACTTCCCAGTAGGTACTG'
 text = 'GAGCCACCGCGATA'
