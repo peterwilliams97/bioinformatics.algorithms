@@ -89,6 +89,87 @@ def frequent_kmers(text, k, min_cnt=None, include_rc=False):
     return freq_kmers
 
 
+# def find_clumps(text, k, L, t):
+#     """Clump Finding Problem: Find patterns forming clumps in a string.
+#      Find all `k`-mers that occur `t` or more times in substrings of length `L` in `text`
+
+#      Input: A string `text', and integers k, L, and t.
+#      Output: All distinct k-mers forming (L, t)-clumps in Genome.
+
+#     """
+#     freq_kmers = [kmer for kmer, _ in frequent_kmers(text, k, t)]
+#     #print('@@1 %s' % freq_kmers)
+#     clumps = []
+#     for kmer in freq_kmers:
+#         offsets = all_offsets(text, kmer)
+#         #print('%s %s' % (kmer, offsets))
+#         for i in range(len(offsets) - t + 1):
+#             if offsets[i + t - 1] <= offsets[i] + L:
+#                 clumps.append(kmer)
+#                 break
+#     return clumps
+
+
+# def find_clumps(text, k, L, t):
+#     """Clump Finding Problem: Find patterns forming clumps in a string.
+#      Find all `k`-mers that occur `t` or more times in substrings of length `L` in `text`
+
+#      Input: A string `text', and integers k, L, and t.
+#      Output: All distinct k-mers forming (L, t)-clumps in Genome.
+
+#     """
+#     freq_kmers = [kmer for kmer, _ in frequent_kmers(text, k, t)]
+#     print('@@1 %s' % len(freq_kmers))
+#     clumps = []
+#     for kmer in freq_kmers:
+#         offsets = []
+#         start = 0
+#         i = 0
+#         while True:
+#             ofs = text.find(kmer, start)
+#             if ofs < 0:
+#                 break
+#             offsets.append(ofs)
+#             start = ofs + 1
+#             i += 1
+#         #try:
+#             if len(offsets) >= t and offsets[-1] <= offsets[-t] + L:
+#                 clumps.append(kmer)
+#                 break
+#         # except:
+#         #     print('*** i=%d,t=%d,offsets=%d' % (i, t, len(offsets)))
+#         #     raise
+#     return clumps
+
+
+# def find_clumps(text, k, L, t):
+#     """Clump Finding Problem: Find patterns forming clumps in a string.
+#      Find all `k`-mers that occur `t` or more times in substrings of length `L` in `text`
+
+#      Input: A string `text', and integers k, L, and t.
+#      Output: All distinct k-mers forming (L, t)-clumps in Genome.
+
+#     """
+#     freq_kmers = [kmer for kmer, _ in frequent_kmers(text, k, t)]
+#     print('@@1 %s' % len(freq_kmers))
+
+#     kmer_offsets = {kmer: [] for kmer in freq_kmers}
+#     for i in range(len(text) - k):
+#         kmer = text[i:i + k]
+#         if kmer in kmer_offsets:
+#             kmer_offsets[kmer].append(i)
+#     print('@@2 %s' % len(freq_kmers))
+
+#     clumps = []
+#     for kmer, offsets in kmer_offsets.items():
+#         for i in range(len(offsets) - t + 1):
+#             if offsets[i + t - 1] <= offsets[i] + L:
+#                 clumps.append(kmer)
+#                 break
+
+#     return clumps
+
+
 def find_clumps(text, k, L, t):
     """Clump Finding Problem: Find patterns forming clumps in a string.
      Find all `k`-mers that occur `t` or more times in substrings of length `L` in `text`
@@ -97,14 +178,20 @@ def find_clumps(text, k, L, t):
      Output: All distinct k-mers forming (L, t)-clumps in Genome.
 
     """
-    freq_kmers = [kmer for kmer, _ in frequent_kmers(text, k, t)]
-    #print('@@1 %s' % freq_kmers)
+
+    kmer_offsets = defaultdict(list)
+    for i in range(len(text) - k):
+        kmer_offsets[text[i:i + k]].append(i)
+
+    print('@@2 %s' % len(kmer_offsets))
+
     clumps = []
-    for kmer in freq_kmers:
-        offsets = all_offsets(text, kmer)
-        print('%s %s' % (kmer, offsets))
+    for kmer, offsets in kmer_offsets.items():
+        if len(offsets) < t:
+            continue
         for i in range(len(offsets) - t + 1):
-            if offsets[i + t - 1] <= offsets[i] + L:
+            if offsets[i + t - 1] < offsets[i] + L:
                 clumps.append(kmer)
                 break
+
     return clumps
