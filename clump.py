@@ -13,13 +13,26 @@ def clump(text, L, pattern):
     return max(word_count(text[i:i + L], pattern) for i in range(len(text) - L))
 
 
-text = 'GCACAAGGCCGACAATAGGACGTAGCCTTGAAGACGACGTAGCGTGGTCGCATAAGTACAGTAGATAGTACCTCCCCCGCGCATCCTATTATTAAGTTAATT'
-patterns = ['GACG', 'CCCC', 'AGTA', 'TCCT']
+def find_clumps(text, k, L, t):
+    """Clump Finding Problem: Find patterns forming clumps in a string.
+     Find all `k`-mers that occur `t` or more time in substring of length `L` in `text`
 
-text = 'CCGACAGGCTAGTCTATAATCCTGAGGCGTTACCCCAATACCGTTTACCGTGGGATTTGCTACTACAACTCCTGAGCGCTACATGTACGAAACCATGTTATGTAT'
-patterns = ['TACC', 'TTTT', 'CTAC', 'CTCT']
+     Input: A string `text', and integers k, L, and t.
+     Output: All distinct k-mers forming (L, t)-clumps in Genome.
 
-for pat in patterns:
-    cnt = clump(text, 30, pat)
-    sym = '***' if cnt >= 3 else ''
-    print '%s: %d %s' % (pat, cnt, sym)
+     """
+
+if __name__ == '__main__':
+
+    text = 'GCACAAGGCCGACAATAGGACGTAGCCTTGAAGACGACGTAGCGTGGTCGCATAAGTACAGTAGATAGTACCTCCCCCGCGCATCCTATTATTAAGTTAATT'
+    patterns = ['GACG', 'CCCC', 'AGTA', 'TCCT']
+
+    text = 'CCGACAGGCTAGTCTATAATCCTGAGGCGTTACCCCAATACCGTTTACCGTGGGATTTGCTACTACAACTCCTGAGCGCTACATGTACGAAACCATGTTATGTAT'
+    patterns = ['TACC', 'TTTT', 'CTAC', 'CTCT']
+
+    for pat in patterns:
+        cnt = clump(text, 30, pat)
+        sym = '***' if cnt >= 3 else ''
+        print '%s: %d %s' % (pat, cnt, sym)
+
+
