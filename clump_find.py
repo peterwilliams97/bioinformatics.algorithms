@@ -4,7 +4,7 @@ Python cheat sheet
 http://www.astro.up.pt/~sousasag/Python_For_Astronomers/Python_qr.pdf?utm_content=buffer88e26&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 """
 from __future__ import division, print_function
-from utils import find_clumps
+from algos import find_clumps
 
 
 if __name__ == '__main__':

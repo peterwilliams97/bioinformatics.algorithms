@@ -5,20 +5,7 @@ http://www.astro.up.pt/~sousasag/Python_For_Astronomers/Python_qr.pdf?utm_conten
 """
 from __future__ import division, print_function
 import re
-import os
 from collections import defaultdict
-
-
-OUTPUT_DIR = 'output'
-
-try:
-    os.mkdir(OUTPUT_DIR)
-except:
-    pass
-
-
-def make_outpath(filename):
-    return os.path.join(OUTPUT_DIR, filename)
 
 
 complements = {
@@ -41,6 +28,7 @@ def reverse_complement(text):
 
 
 def all_offsets(text, pattern):
+    """Return list of all offsets of `pattern` in `text`"""
     offsets = []
     start = 0
     while True:
@@ -49,6 +37,19 @@ def all_offsets(text, pattern):
             break
         offsets.append(ofs)
         start = ofs + 1
+    return offsets
+
+
+def all_offsets_approximate(text, pattern, k):
+    """Return list of all offsets of patterns with hamming distance `k` of `pattern` in `text`"""
+
+    n = len(text)
+    m = len(pattern)
+
+    offsets = []
+    for i in xrange(n - m + 1):
+        if sum(text[i + j] != c for j, c in enumerate(pattern)) <= k:
+            offsets.append(i)
     return offsets
 
 
